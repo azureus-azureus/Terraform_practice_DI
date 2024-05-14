@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: elliot-deploy
+spec:
+  replicas: 4
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values: 
+      - profile
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      name: azureus
+      labels:
+        app: profile
+    spec:
+      containers:
+      - name: azureus
+        image: devopsinsiders/profile:v2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 80
+
+
+

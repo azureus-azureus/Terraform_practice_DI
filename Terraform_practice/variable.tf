@@ -1,0 +1,3 @@
+variable "rgroup" {}
+
+variable "vnet" {}
